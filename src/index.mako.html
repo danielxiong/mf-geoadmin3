@@ -797,6 +797,8 @@ itemscope itemtype="http://schema.org/WebApplication"
         var shopUrl = setBackend(prtl + '${shop_url}', prtl + '${shop_tech_url}', 'shop_url');
         var publicUrl = setBackend(prtl + '${public_url}', prtl + '${public_tech_url}', 'public_url');
         var printUrl = setBackend(prtl + '${print_url}', prtl + '${print_tech_url}', 'print_url');
+        var proxyUrl = prtl + '${proxy_url}' + '/';
+        var proxyApiKey = '${proxy_api_key}';
         var apiOverwrite = !!(getParam('api_url') || env);
 
         module.constant('gaGlobalOptions', {
@@ -808,6 +810,8 @@ itemscope itemtype="http://schema.org/WebApplication"
           mapUrl: location.origin + pathname,
           apiUrl: apiUrl,
           printUrl: printUrl,
+          proxyUrl: proxyUrl,
+          proxyApiKey: proxyApiKey,
           mapproxyUrl: mapproxyUrl,
           vectorTilesUrl: vectorTilesUrl,
           shopUrl: shopUrl,
@@ -817,14 +821,15 @@ itemscope itemtype="http://schema.org/WebApplication"
           cachedApiUrl: apiUrl + cacheAdd,
           cachedPrintUrl: printUrl + cacheAdd,
           resourceUrl: location.origin + s3pathname + '${versionslashed}',
-          ogcproxyUrl: apiUrl + '/ogcproxy?url=',
           wmsUrl: wmsUrl,
           w3wUrl: 'https://api.what3words.com',
           lv03tolv95Url: 'https://geodesy.geo.admin.ch/reframe/lv03tolv95',
           lv95tolv03Url: 'https://geodesy.geo.admin.ch/reframe/lv95tolv03',
           w3wApiKey: 'OM48J50Y',
           whitelist: [
-            'https://' + window.location.host + '/**'
+            'https://' + window.location.host + '/**',
+            'https://*.execute-api.eu-west-1.amazonaws.com/**',
+            'https://service-proxy.*.bgdi.ch/**',
           ],
           defaultTopicId: '${default_topic_id}',
           translationFallbackCode: '${translation_fallback_code}',
