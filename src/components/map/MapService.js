@@ -520,6 +520,27 @@ goog.require('ga_urlutils_service');
 
             // Live modifications for 3d test
             if (response.data) {
+
+              response.data['ch.swisstopo.revisionspunkte'] = {
+                type: 'geojson',
+                attribution: 'Feedbacklayer',
+                brackground: false,
+                searchable: false,
+                highlightable: true,
+                selectbyrectangle: false,
+                attributionUrl: '',
+                geojsonUrl: gaGlobalOptions.apiUrl +
+                    '/static/vectorStyles/ch.feedback.layer.json',
+                styleUrl: gaGlobalOptions.apiUrl.split('https:')[1] +
+                    '/static/vectorStyles/ch.feedback.json',
+                topics: 'api,bafu,ech,inspire',
+                hasLegend: false,
+                updateDelay: 300000,
+                timeEnabled: false,
+                label: 'Test Feedback Layer',
+                queryable: false
+              };
+
               // Test layers opaque setting
               var ids = [
                 'ch.swisstopo.swissimage-product',
@@ -596,6 +617,7 @@ goog.require('ga_urlutils_service');
                 }
               });
             }
+
             if (!layers) { // First load
               layers = response.data;
               // We register events only when layers are loaded
