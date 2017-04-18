@@ -468,9 +468,9 @@ goog.require('ga_topic_service');
                     sourceProj || mapProj,
                     {'INFO_FORMAT': 'text/plain', 'LANG': gaLang.get()});
                 if (!is3dActive() && url) {
-                  gaUrlUtils.proxifyUrl(url).then(function(proxyUrl, headers) {
-                    all.push($http.get(proxyUrl, {
-                      headers: headers,
+                  gaUrlUtils.proxifyUrl(url).then(function(opts) {
+                    all.push($http.get(opts.url, {
+                      headers: opts.headers,
                       timeout: canceler.promise,
                       layer: layerToQuery
                     }).then(function(response) {

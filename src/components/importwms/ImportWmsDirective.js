@@ -48,10 +48,10 @@ goog.require('ga_wms_service');
               $scope.progress = 0.1;
               $scope.canceler = $q.defer();
 
-              gaUrlUtils.proxifyUrl(url).then(function(proxyUrl, headers) {
+              gaUrlUtils.proxifyUrl(url).then(function(opts) {
                 // Angularjs doesn't handle onprogress event
-                $http.get(proxyUrl, {
-                  headers: headers,
+                $http.get(opts.url, {
+                  headers: opts.headers,
                   timeout: $scope.canceler.promise
                 }).then(function(response) {
                   $scope.userMessage = $translate.instant('upload_succeeded');

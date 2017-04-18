@@ -355,10 +355,10 @@ goog.require('ga_urlutils_service');
           if (gaNetworkStatus.offline) {
             return this.addKmlToMap(map, null, layerOptions, index);
           } else {
-            return gaUrlUtils.proxifyUrl(url).then(function(proxyUrl, headers) {
-              return $http.get(proxyUrl, {
+            return gaUrlUtils.proxifyUrl(url).then(function(opts) {
+              return $http.get(opts.url, {
                 cache: true,
-                headers: headers
+                headers: opts.headers
               }).then(function(response) {
                 var data = response.data;
                 var fileSize = response.headers('content-length');

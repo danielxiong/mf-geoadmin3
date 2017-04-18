@@ -107,32 +107,32 @@ describe('ga_urlutils_service', function() {
       }));
 
       it('applies a proxy correctly on http://data.geo.admin.ch', function(done) {
-        gaUrlUtils.proxifyUrl('http://data.geo.admin.ch').then(function(url) {
-          expect(url).to.be(gaGlobalOptions.proxyUrl + 'http/data.geo.admin.ch');
+        gaUrlUtils.proxifyUrl('http://data.geo.admin.ch').then(function(opts) {
+          expect(opts.url).to.be(gaGlobalOptions.proxyUrl + 'http/data.geo.admin.ch');
           done();
         });
         $rootScope.$digest();
       });
 
       it('applies a proxy correctly on http://ineedaproxybadly.ch', function(done) {
-        gaUrlUtils.proxifyUrl('http://ineedaproxybadly.ch').then(function(url) {
-          expect(url).to.be(gaGlobalOptions.proxyUrl + 'http/ineedaproxybadly.ch');
+        gaUrlUtils.proxifyUrl('http://ineedaproxybadly.ch').then(function(opts) {
+          expect(opts.url).to.be(gaGlobalOptions.proxyUrl + 'http/ineedaproxybadly.ch');
           done();
         });
         $rootScope.$digest();
       });
 
       it('does not apply a proxy on https://data.geo.admin.ch', function(done) {
-        gaUrlUtils.proxifyUrl('https://data.geo.admin.ch').then(function(url) {
-          expect(url).to.be('https://data.geo.admin.ch');
+        gaUrlUtils.proxifyUrl('https://data.geo.admin.ch').then(function(opts) {
+          expect(opts.url).to.be('https://data.geo.admin.ch');
           done();
         });
         $rootScope.$digest();
       });
 
       it('does not apply a proxy on blob:https://myblob.ch/7a910681-938c-4011-8d75-2b64035a40a7', function(done) {
-        gaUrlUtils.proxifyUrl('blob:https://myblob.ch/7a910681-938c-4011-8d75-2b64035a40a7').then(function(url) {
-          expect(url).to.be('blob:https://myblob.ch/7a910681-938c-4011-8d75-2b64035a40a7');
+        gaUrlUtils.proxifyUrl('blob:https://myblob.ch/7a910681-938c-4011-8d75-2b64035a40a7').then(function(opts) {
+          expect(opts.url).to.be('blob:https://myblob.ch/7a910681-938c-4011-8d75-2b64035a40a7');
           done();
         });
         $rootScope.$digest();
@@ -140,8 +140,8 @@ describe('ga_urlutils_service', function() {
 
       it('does not apply a proxy on https://corsenable.com/dummy.kml', function(done) {
         $httpBackend.expectHEAD('https://corsenable.com/dummy.kml').respond(200, '');
-        gaUrlUtils.proxifyUrl('https://corsenable.com/dummy.kml').then(function(url) {
-          expect(url).to.be('https://corsenable.com/dummy.kml');
+        gaUrlUtils.proxifyUrl('https://corsenable.com/dummy.kml').then(function(opts) {
+          expect(opts.url).to.be('https://corsenable.com/dummy.kml');
           done();
         });
         $httpBackend.flush();

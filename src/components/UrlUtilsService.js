@@ -77,14 +77,21 @@ goog.provide('ga_urlutils_service');
           if (!this.isBlob(url) && this.isHttps(url) &&
               !this.isAdminValid(url) && !/.*kmz$/.test(url)) {
             this.isCorsEnabled(url).then(function(enabled) {
-              deferred.resolve(url, {});
+              deferred.resolve({
+                url: url,
+                headers: {}
+              });
             }, function() {
-              deferred.resolve(that.buildProxyUrl(url), {
-                'x-api-key': gaGlobalOptions.proxyApiKey
+              deferred.resolve({
+                url: that.buildProxyUrl(url),
+                headers: { 'x-api-key': gaGlobalOptions.proxyApiKey }
               });
             });
           } else {
-            deferred.resolve(this.proxifyUrlInstant(url));
+            deferred.resolve({
+              url: this.proxifyUrlInstant(url),
+              headers: { 'x-api-key': gaGlobalOptions.proxyApiKey }
+            });
           }
           return deferred.promise;
         };
