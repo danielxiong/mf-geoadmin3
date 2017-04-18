@@ -51,11 +51,9 @@ goog.require('ga_urlutils_service');
             $scope.canceler = $q.defer();
 
             // Angularjs doesn't handle onprogress event
-            gaUrlUtils.proxifyUrl($scope.fileUrl).then(function(url) {
+            gaUrlUtils.proxifyUrl($scope.fileUrl).then(function(url, headers) {
               $http.get(url, {
-                headers: {
-                  'x-api-key': gaGlobalOptions.proxyApiKey,
-                },
+                headers: headers,
                 cache: true,
                 timeout: $scope.canceler.promise
               }).then(function(response) {

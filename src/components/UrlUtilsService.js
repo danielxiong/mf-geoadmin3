@@ -77,9 +77,11 @@ goog.provide('ga_urlutils_service');
           if (!this.isBlob(url) && this.isHttps(url) &&
               !this.isAdminValid(url) && !/.*kmz$/.test(url)) {
             this.isCorsEnabled(url).then(function(enabled) {
-              deferred.resolve(url);
+              deferred.resolve(url, {});
             }, function() {
-              deferred.resolve(that.buildProxyUrl(url));
+              deferred.resolve(that.buildProxyUrl(url), {
+                'x-api-key': gaGlobalOptions.proxyApiKey
+              });
             });
           } else {
             deferred.resolve(this.proxifyUrlInstant(url));

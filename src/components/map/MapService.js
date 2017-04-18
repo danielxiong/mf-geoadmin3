@@ -922,8 +922,11 @@ goog.require('ga_urlutils_service');
             });
             var setLayerSource = function() {
               var geojsonFormat = new ol.format.GeoJSON();
-              gaUrlUtils.proxifyUrl(layer.geojsonUrl).then(function(proxyUrl) {
-                $http.get(proxyUrl).then(function(response) {
+              gaUrlUtils.proxifyUrl(layer.geojsonUrl).then(function(proxyUrl,
+                  headers) {
+                $http.get(proxyUrl, {
+                  headers: headers
+                }).then(function(response) {
                   olSource.clear();
                   olSource.addFeatures(
                     geojsonFormat.readFeatures(response.data)

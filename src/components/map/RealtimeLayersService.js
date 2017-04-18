@@ -18,8 +18,11 @@ goog.require('ga_map_service');
 
       function setLayerSource(layer) {
         var olSource = layer.getSource();
-        gaUrlUtils.proxifyUrl(layer.geojsonUrl).then(function(proxyUrl) {
-          $http.get(proxyUrl).then(function(response) {
+        gaUrlUtils.proxifyUrl(layer.geojsonUrl).then(function(proxyUrl,
+            headers) {
+          $http.get(proxyUrl, {
+            headers: headers
+          }).then(function(response) {
             var data = response.data;
             olSource.clear();
             olSource.addFeatures(
